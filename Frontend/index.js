@@ -24,7 +24,6 @@ function fun1() {
             essay: essayText
         };
 
-
         fetch('http://localhost:5000/score', {
             method: 'POST',
             headers: {
