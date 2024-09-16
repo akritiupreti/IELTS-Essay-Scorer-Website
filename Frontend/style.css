@@ -12,6 +12,18 @@ body {
     min-height: 100vh;
 }
 
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: #333;
+    color: #fff;
+}
+
+.left.dark-mode,
+.right.dark-mode {
+    background-color: #444;
+    color: #fff;
+}
+
 /* Navigation Bar */
 nav {
     background-color: #343a40;
@@ -99,6 +111,16 @@ main {
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
+.word-count-note {
+    font-size: 12px;
+    color: #666;
+    font-style: italic;
+    margin-bottom: 10px;
+    text-align: right;
+    /* Align it to the right */
+}
+
+
 .left input[type="button"]:hover {
     background-color: #218838;
     transform: scale(1.05);
@@ -113,6 +135,34 @@ main {
     text-align: center;
 }
 
+textarea {
+    font-family: 'Roboto', sans-serif;
+    /* Apply the custom font */
+}
+
+
+.left textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+    resize: none;
+    /* Prevent resizing */
+}
+
+
+
+
+/* Adjust specific styles for the topic textarea */
+#topic {
+    height: 90px;
+    /* Adjust height for the topic textarea */
+}
+
+
 #score p {
     font-size: 16px;
     color: #333;
@@ -124,4 +174,10 @@ main {
     font-size: 16px;
     margin-top: 10px;
     font-weight: bold;
+}
+
+#wordCount {
+    font-size: 16px;
+    margin-top: 10px;
+    color: #333;
 }
