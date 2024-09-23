@@ -6,13 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Essay Scorer</title>
     <link rel="stylesheet" href="style.css">
-    <script src="index.js" defer></script> <!-- Link JavaScript file -->
+    <script src="index.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <nav>
         <button id="fancy">About us</button>
         <button id="fancy">Login//Signup</button>
+        <button id="toggleMode">Toggle Dark Mode</button> <!-- Dark Mode Toggle Button -->
     </nav>
 
     <h1>Essay Scorer</h1>
@@ -20,18 +22,32 @@
     <main>
         <div class="container">
             <div class="left">
-                <input type="text" placeholder="Topic of your Essay" id="topic" name="user">
+                <textarea id="topic" name="user" placeholder="Topic of your Essay" rows="2"></textarea>
                 <h4>Paste your essay</h4>
                 <textarea id="essay" name="essay" placeholder="PASTE HERE" cols="40" rows="15"
                     minlength="150"></textarea><br>
-                <input type="button" id="btn1" value="Click Me"> <br>
+
+                <p class="word-count-note">Minimum words : 150</p>
+                <input type="button" id="btn1" value="Click Me"><br>
                 <p class="output" id="output1"></p>
+                <p id="wordCount">Word Count: 0</p> <!-- Word Count Display -->
             </div>
-            <div class="right">
-                <!-- <textarea id="essayCheck" name="essay1" cols="40" rows="15" readonly></textarea><br> -->
-                <div id="score">
-                    <!-- Static grading scores will be shown here -->
-                </div>
+
+            <div class="right" id="sampleBox">
+                <h3>Sample Topic:</h3>
+                <p id="sampleTopic">The Importance of Education</p>
+                <h3>Sample Essay:</h3>
+                <p id="sampleEssay">Education is one of the most important aspects of life. It shapes individuals and
+                    equips them with the knowledge and skills necessary to navigate the world. A well-educated
+                    population is essential for the development of society, as it fosters critical thinking, creativity,
+                    and innovation.</p>
+                <input type="button" id="tryIt" value="Try It">
+            </div>
+        </div>
+
+        <div class="right hidden" id="rightBox">
+            <div id="score">
+                <!-- Static grading scores will be shown here -->
             </div>
         </div>
     </main>

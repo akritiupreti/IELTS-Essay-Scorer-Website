@@ -12,6 +12,12 @@ body {
     min-height: 100vh;
 }
 
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: #333;
+    color: #fff;
+}
+
 /* Navigation Bar */
 nav {
     background-color: #343a40;
@@ -39,10 +45,6 @@ nav button:hover {
     transform: scale(1.05);
 }
 
-nav button:active {
-    transform: scale(0.95);
-}
-
 /* Main Heading */
 h1 {
     color: #007bff;
@@ -54,49 +56,68 @@ h1 {
 /* Main Section */
 main {
     padding: 20px;
-    width: 80%;
+    width: 90%;
+    /* Increased width for more coverage */
     max-width: 800px;
-    margin: 20px;
+    /* Keep it centered and not too wide */
+    margin: 20px auto;
 }
 
 .container {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    /* Center boxes horizontally */
 }
 
 .left,
 .right {
     background-color: white;
-    padding: 20px;
+    padding: 30px;
     border-radius: 10px;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-    width: 48%;
+    width: 100%;
     box-sizing: border-box;
     text-align: center;
+    margin-bottom: 20px;
+    /* Add a small gap between the two boxes */
 }
 
-.left input[type="text"],
-.left textarea,
-.right textarea {
+/* Adjust textarea size */
+.left textarea {
     width: 100%;
-    padding: 12px;
+    padding: 15px;
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
     box-sizing: border-box;
+    resize: none;
+}
+
+#topic {
+    height: 100px;
+    /* Adjust height for the topic textarea */
 }
 
 .left input[type="button"] {
     background-color: #28a745;
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 15px 30px;
     cursor: pointer;
     font-size: 18px;
     border-radius: 5px;
-    margin-top: 10px;
+    margin-top: 20px;
     transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.word-count-note {
+    font-size: 12px;
+    color: #666;
+    font-style: italic;
+    margin-bottom: 10px;
+    text-align: right;
 }
 
 .left input[type="button"]:hover {
@@ -108,20 +129,61 @@ main {
     transform: scale(0.95);
 }
 
-#score {
-    margin-top: 20px;
-    text-align: center;
+/* Hide the right box initially */
+.hidden {
+    display: none;
 }
 
-#score p {
-    font-size: 16px;
-    color: #333;
-    font-weight: bold;
-}
-
+/* Word Count and Output styles */
 .output {
     color: red;
     font-size: 16px;
     margin-top: 10px;
     font-weight: bold;
+}
+
+#wordCount {
+    font-size: 16px;
+    margin-top: 10px;
+    color: #333;
+}
+
+/* Score container styling */
+.score-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* Individual score block */
+.score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 20px;
+    /* Default font size */
+}
+
+/* Styling for numerator (larger) and denominator (smaller) */
+.numerator {
+    font-size: 36px;
+    /* Make numerator larger */
+    font-weight: bold;
+    line-height: 1;
+}
+
+.denominator {
+    font-size: 18px;
+    /* Make denominator smaller */
+    font-weight: normal;
+}
+
+/* Parameter name below the score */
+.parameter {
+    font-size: 16px;
+    margin-top: 5px;
+    color: #666;
+    text-align: center;
 }
