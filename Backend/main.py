@@ -13,10 +13,10 @@ bert_model_name = 'bert-base-uncased'
 bert_tokenizer = BertTokenizer.from_pretrained(bert_model_name)
 
 with tf.keras.utils.custom_object_scope({'TFBertModel': TFBertModel}):
-    bert_prompt_model = load_model('models/bert_model_newdataset_prompt_3.h5')
+    bert_prompt_model = load_model('models/bert_lstm_model_prompt_1.h5')
 
 with tf.keras.utils.custom_object_scope({'TFBertModel': TFBertModel}):
-    bert_essay_model = load_model('models/bert_model_newdataset_essay_1.h5')
+    bert_essay_model = load_model('models/bert_lstm_model_essay_1.h5')
 
 # Define route to handle the POST request
 @app.route('/score', methods=['POST'])
@@ -43,12 +43,7 @@ def get_scores():
 
 def compute_scores(prompt, essay):
     def round_ielts_score(predicted_score):
-        if predicted_score % 1 < 0.25:
-            return np.floor(predicted_score)
-        elif predicted_score % 1 < 0.75:
-            return int(predicted_score) + 0.5
-        else:
-            return np.ceil(predicted_score)
+        return np.round(predicted_score*2)/2
 
     def remove_empty_lines(essay):
         lines = essay.splitlines()
@@ -64,7 +59,7 @@ def compute_scores(prompt, essay):
         padding='max_length',
         truncation=True,
         return_tensors='tf',
-        max_length=512
+        max_length=350
     )['input_ids']
 
     input_ids_essay = bert_tokenizer(
@@ -72,7 +67,7 @@ def compute_scores(prompt, essay):
         padding='max_length',
         truncation=True,
         return_tensors='tf',
-        max_length=512
+        max_length=350
     )['input_ids']
 
     X_prompt_dict = {

@@ -7,12 +7,14 @@ const wordCountDisplay = document.getElementById('wordCount');
 const toggleMode = document.getElementById('toggleMode');
 
 // Sample essay topic and content
-const sampleTopic = "The Importance of Education";
-const sampleEssay = "Education is one of the most important aspects of life. It shapes individuals and equips them with the knowledge and skills necessary to navigate the world. A well-educated population is essential for the development of society, as it fosters critical thinking, creativity, and innovation.";
+const sampleTopic = cleanText(document.getElementById('sampleTopic').textContent);
+const sampleEssay = cleanText(document.getElementById('sampleEssay').textContent);
 
 // Function to clean text input
 function cleanText(text) {
-    return text.replace(/(\r\n|\n|\r)/gm, "").trim();
+    text = text.replace(/(\r\n|\n|\r)/gm, "").trim();
+    text = text.replace(/\s{2,}/g, ' ');
+    return text
 }
 
 // Function to handle the scoring process
