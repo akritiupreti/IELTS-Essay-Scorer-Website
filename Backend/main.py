@@ -4,7 +4,11 @@ import numpy as np
 import tensorflow as tf
 from transformers import TFBertModel, BertTokenizer
 from tensorflow.keras.models import load_model
+import google.generativeai as genai
+import os
 
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+model = genai.GenerativeModel("gemini-1.5-flash")
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
@@ -12,11 +16,13 @@ CORS(app)  # Enable CORS for all routes
 bert_model_name = 'bert-base-uncased'
 bert_tokenizer = BertTokenizer.from_pretrained(bert_model_name)
 
-with tf.keras.utils.custom_object_scope({'TFBertModel': TFBertModel}):
-    bert_prompt_model = load_model('models/bert_lstm_model_prompt_1.h5')
+with tf.device('/CPU:0'):
+    with tf.keras.utils.custom_object_scope({'TFBertModel': TFBertModel}):
+        bert_prompt_model = load_model('models/bert_lstm_model_prompt_1.h5')
 
-with tf.keras.utils.custom_object_scope({'TFBertModel': TFBertModel}):
-    bert_essay_model = load_model('models/bert_lstm_model_essay_1.h5')
+    with tf.keras.utils.custom_object_scope({'TFBertModel': TFBertModel}):
+        bert_essay_model = load_model('models/bert_lstm_model_essay_1.h5')
+
 
 # Define route to handle the POST request
 @app.route('/score', methods=['POST'])
@@ -37,6 +43,25 @@ def get_scores():
         "grammaticalRangeAccuracy": scores[3],
         "overall": scores[4]
     }
+
+    response = model.generate_content(
+        f'''
+        This is an IELTS essay written by a candidate.
+        
+        Prompt: {prompt}
+        Essay: {essay}
+        The candidate received the following scores:
+        Task Achievement: {scores["taskAchievement"]}/9
+        Coherence and Cohesion: {scores["coherenceCohesion"]}/9
+        Lexical Resource: {scores["lexicalResource"]}/9
+        Grammatical Range and Accuracy: {scores["grammaticalRangeAccuracy"]}/9
+        Overall: {scores["overall"]}/9
+    
+        Justify the scores by providing appropriate and honest feedback for each scoring dimension. The feedback for each dimension should be no longer than 50 words.
+        '''
+    )
+
+    print(response.text)
 
     return jsonify(scores)  # Send back the scores as a JSON response
 
