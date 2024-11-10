@@ -41,12 +41,16 @@ def get_scores():
         "coherenceCohesion": scores[1],
         "lexicalResource": scores[2],
         "grammaticalRangeAccuracy": scores[3],
-        "overall": scores[4]
+        "overall": scores[4],
+        "taskFeedback": "",
+        "coherenceFeedback": "",
+        "lexicalFeedback": "",
+        "grammarFeedback": ""
     }
 
     response = model.generate_content(
         f'''
-        This is an IELTS essay written by a candidate.
+        This is an IELTS task 2 essay written by a candidate.
         
         Prompt: {prompt}
         Essay: {essay}
@@ -58,8 +62,19 @@ def get_scores():
         Overall: {scores["overall"]}/9
     
         Justify the scores by providing appropriate and honest feedback for each scoring dimension. The feedback for each dimension should be no longer than 50 words.
+        Dont bold any text. Your response format should be like this:
+        taskFeedback: <task achievement feedback>
+        coherenceFeedback: <coherence and cohesion feedback>
+        lexicalFeedback: <lexical resource feedback>
+        grammarFeedback: <grammatical range and accuracy feedback>
         '''
     )
+
+    text = response.text
+    scores['taskFeedback'] = text[text.find("taskFeedback:") + len("taskFeedback:") + 1: text.find("coherenceFeedback")]
+    scores['coherenceFeedback'] = text[text.find("coherenceFeedback:") + len("coherenceFeedback:") + 1: text.find("lexicalFeedback")]
+    scores['lexicalFeedback'] = text[text.find("lexicalFeedback:") + len("lexicalFeedback:") + 1: text.find("grammarFeedback")]
+    scores['grammarFeedback'] = text[text.find("grammarFeedback:") + len("grammarFeedback:") + 1:]
 
     print(response.text)
 
