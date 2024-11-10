@@ -50,13 +50,31 @@ function fun1() {
                 const lexicalResource = data.lexicalResource;
                 const grammaticalRangeAccuracy = data.grammaticalRangeAccuracy;
                 const overall = data.overall;
+
+                const taskFeedback = data.taskFeedback;
+                const coherenceFeedback = data.coherenceFeedback;
+                const lexicalFeedback = data.lexicalFeedback;
+                const grammarFeedback = data.grammarFeedback;
+
                 console.log('Success');
 
                 scoreDiv.innerHTML = `
-                <p>Task Achievement: ${taskAchievement}/9</p>
-                <p>Coherence and Cohesion: ${coherenceCohesion}/9</p>
-                <p>Lexical Resource: ${lexicalResource}/9</p>
-                <p>Grammatical Range and Accuracy: ${grammaticalRangeAccuracy}/9</p>
+                <div class="score">
+                    <p>Task Achievement: ${taskAchievement}/9</p>
+                    <p>${taskFeedback}</p>
+                </div>
+                <div class="score">
+                    <p>Coherence and Cohesion: ${coherenceCohesion}/9</p>
+                    <p>${coherenceFeedback}</p>
+                </div>
+                <div class="score">
+                    <p>Lexical Resource: ${lexicalResource}/9</p>
+                    <p>${lexicalFeedback}</p>
+                </div>
+                <div class="score">
+                    <p>Grammatical Range and Accuracy: ${grammaticalRangeAccuracy}/9</p>
+                    <p>${grammarFeedback}</p>
+                </div>
                 <p><strong>Overall: ${overall}/9</strong></p>
             `;
             })
