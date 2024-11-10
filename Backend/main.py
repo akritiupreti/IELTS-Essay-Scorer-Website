@@ -61,7 +61,8 @@ def get_scores():
         Grammatical Range and Accuracy: {scores["grammaticalRangeAccuracy"]}/9
         Overall: {scores["overall"]}/9
     
-        Justify the scores by providing appropriate and honest feedback for each scoring dimension. The feedback for each dimension should be no longer than 50 words.
+        Justify the scores by providing appropriate and honest feedback for each scoring dimension. You can be specific and point out grammar errors or good/bad vocabulary use if any. 
+        The feedback for each dimension should be no longer than 60 words.
         Dont bold any text. Your response format should be like this:
         taskFeedback: <task achievement feedback>
         coherenceFeedback: <coherence and cohesion feedback>
