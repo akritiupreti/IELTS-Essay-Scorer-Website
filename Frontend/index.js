@@ -75,7 +75,7 @@ function fun1() {
                     <p>Grammatical Range and Accuracy: ${grammaticalRangeAccuracy}/9</p>
                     <p>${grammarFeedback}</p>
                 </div>
-                <p><strong>Overall: ${overall}/9</strong></p>
+                <p><h2>Overall: ${overall}/9</h2></p>
             `;
             })
             .catch((error) => {
